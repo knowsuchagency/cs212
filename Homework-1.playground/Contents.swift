@@ -10,6 +10,9 @@ s = generateStringOrNil()
 
 // Your code for question 1 here.
 
+if let stringOrNil = s {
+    print("\(stringOrNil)")
+}
 
 /*:
  ---
@@ -27,6 +30,21 @@ var total: Int = 0
 
 // Your code for question 2 here
 
+func sumNils(seq: [Int?]) -> Int {
+    var sum = 0
+    for num in seq {
+        switch num {
+        case .Some: break
+        case .None: sum += 1
+        }
+    }
+    return sum
+}
+
+
+total = sumNils(array1)
+
+
 
 /*:
  ---
@@ -37,6 +55,17 @@ Write code that calculates the mean value of the non nil elements in array1.
 let array2 = generateRandomArrayOfIntsAndNils()
 
 // Your code for question 3 here.
+
+func meanOfNonNils(seq: [Int?]) -> Float {
+    let nonNilsAmount = Float(seq.flatMap{$0}.count)
+    var total = 0
+    for case let num? in seq {
+        total += num
+    }
+    return Float(total) / nonNilsAmount
+}
+
+meanOfNonNils(array2)
 
 /*:
  ---
@@ -50,8 +79,12 @@ let array2 = generateRandomArrayOfIntsAndNils()
 
 let array3 = generateRandomArrayOfIntsAndNils()
 
-// Your code for questio 4 here.
-/*:
+// Your code for question 4 here.
+
+ let filteredArray = array3.flatMap{$0}
+ filteredArray
+    
+/*
  ---
 ## 5. Sort array
 
@@ -67,4 +100,23 @@ let array3 = generateRandomArrayOfIntsAndNils()
 var array4 = generateRandomArrayOfIntsAndNils()
 
 // Your code for question 5 here.
+
+func bubbleSort(optionalNumbers: [Int?]) -> [Int] {
+    var numbers = optionalNumbers.flatMap{$0}
+    var switched = true
+    while switched {
+        switched = false
+        for i in 0..<numbers.count-1 {
+            if numbers[i] > numbers[i+1] {
+                switched = true
+                let temp = numbers[i]
+                numbers[i] = numbers[i+1]
+                numbers[i+1] = temp
+            }
+        }
+    }
+    return numbers
+}
+
+var sortedNumbers = bubbleSort(array4)
 
